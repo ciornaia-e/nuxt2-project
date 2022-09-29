@@ -16,6 +16,24 @@
                 >
                     {{ item.name }}
                 </nuxt-link>
+                <nuxt-link
+                    v-if="!hasToken"
+                    to="/login"
+                    no-prefetch
+                    class="text-gray-300 hover:bg-gray-700 hover:text-white 
+                        px-3 py-2 rounded-md text-sm font-medium"
+                >
+                    Login
+                </nuxt-link>
+                <a 
+                    v-else
+                    @click.prevent="logout" 
+                    href="#"
+                    class="text-gray-300 hover:bg-gray-700 hover:text-white 
+                        px-3 py-2 rounded-md text-sm font-medium"
+                >
+                    Logout
+                </a>
             </div>
         </div>
       </div>
@@ -30,8 +48,18 @@
                     { name: 'Home', href: '/' },
                     { name: 'About', href: '/about' },
                     { name: 'Users', href: '/users' },
-                    { name: 'Login', href: '/login' },
                 ]
+            }
+        },
+        computed: {
+            hasToken() {
+                return this.$store.getters.hasToken
+            }
+        },
+        methods: {
+            logout() {
+                this.$store.dispatch('logout')
+                this.$router.push('/login')
             }
         }
     }

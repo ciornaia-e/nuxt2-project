@@ -1,7 +1,16 @@
 <template>
     <section class="mx-auto max-w-xl">
         <h1 class="text-center text-4xl mb-10">Login page</h1>
-        <div class="bg-gray-50">
+
+        <div 
+            v-if="$route.query.message"
+            class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-3" 
+            role="alert"
+        >
+            <span>Need login first</span>
+        </div>
+
+        <form @submit.prevent="onSubmit" class="bg-gray-50">
             <div class="px-4 py-5">
                 <div class="grid grid-cols-6 gap-6">
                     <div class="col-span-6">
@@ -45,7 +54,7 @@
                     Login
                 </button>
             </div>
-        </div>
+        </form>
         <p class="mt-3">
             <nuxt-link to="/" class="text-indigo-600">To home page</nuxt-link>   
         </p>
@@ -54,6 +63,12 @@
 
 <script>
     export default {
-        layout: 'empty'
+        layout: 'empty',
+        methods: {
+            onSubmit() {
+                this.$store.dispatch('login')
+                this.$router.push('/')
+            }
+        }
     }
 </script>

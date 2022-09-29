@@ -4,3 +4,9 @@
         <p>Lorem ipsum</p>
     </section>
 </template>
+
+<script>
+    export default {
+        middleware: ['auth']
+    }
+</script>
